@@ -48,7 +48,7 @@ services:
       - search_net
 
   mailcatcher:
-    image: schickling/mailcatcher
+    image: sj26/mailcatcher
     ports:
       - "1025:1025"
       - "1080:1080"
