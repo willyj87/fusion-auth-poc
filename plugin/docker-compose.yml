@@ -54,6 +54,8 @@ services:
         condition: service_healthy
       search:
         condition: service_healthy
+      maven:
+        condition: service_completed_successfully
     environment:
       DATABASE_URL: jdbc:postgresql://db:5432/fusionauth
       DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
@@ -75,7 +77,24 @@ services:
     volumes:
       - fusionauth_config:/usr/local/fusionauth/config
       - ./kickstart:/usr/local/fusionauth/kickstart
-      - ./plugins:search_net/usr/local/fusionauth/plugins
+      - ./plugins:/usr/local/fusionauth/plugins
+
+  maven:
+    image: maven
+    command:
+      - /bin/sh
+      - -c
+      - |
+        git init .
+        git remote add -t \* -f origin https://github.com/FusionAuth/fusionauth-example-password-encryptor.git
+        git checkout master
+        mvn install
+        cp target/fusionauth-example-password-encryptor*.jar output/
+    volumes:
+      - maven_cache:/root/.m2
+      - plugin_source:/app
+      - ./plugins:/app/output
+    working_dir: /app
 
 networks:
   db_net:
@@ -87,3 +106,5 @@ volumes:
   db_data:
   fusionauth_config:
   search_data:
+  maven_cache:
+  plugin_source:
