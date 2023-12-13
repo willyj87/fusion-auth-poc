@@ -52,6 +52,10 @@ services:
     ports:
       - "1025:1025"
       - "1080:1080"
+    healthcheck:
+      interval: 10s
+      retries: 80
+      test: wget -q -O /dev/null http://mailcatcher:1080/
     networks:
       - mailcatcher_net
 
@@ -61,6 +65,8 @@ services:
       db:
         condition: service_healthy
       search:
+        condition: service_healthy
+      mailcatcher:
         condition: service_healthy
     environment:
       DATABASE_URL: jdbc:postgresql://db:5432/fusionauth

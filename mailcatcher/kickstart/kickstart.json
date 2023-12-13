@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "adminEmail": "admin@fusionauth.io",
+    "password": "password",
+    "defaultTenantId": "30663132-6464-6665-3032-326466613934"
+  },
+  "apiKeys": [
+    {
+      "key": "bf69486b-4733-4470-a592-f1bfce7af580",
+      "description": "Standard development API key"
+    }
+  ],
+  "requests": [
+    {
+      "method": "PATCH",
+      "url": "/api/tenant/#{defaultTenantId}",
+      "body": {
+        "tenant": {
+          "emailConfiguration": {
+            "defaultFromEmail": "no-reply@fusionauth.io",
+            "host": "mailcatcher",
+            "port": 1025,
+            "unverified": {
+              "allowEmailChangeWhenGated": false,
+              "behavior": "Allow"
+            },
+            "verificationStrategy": "ClickableLink",
+            "verifyEmail": false,
+            "verifyEmailWhenChanged": false
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/00000000-0000-0000-0000-000000000001",
+      "body": {
+        "user": {
+          "birthDate": "1981-06-04",
+          "email": "#{adminEmail}",
+          "firstName": "FusionAuth",
+          "lastName": "Admin",
+          "password": "#{password}"
+        },
+        "registration": {
+          "applicationId": "#{FUSIONAUTH_APPLICATION_ID}",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    }
+  ]
+}
