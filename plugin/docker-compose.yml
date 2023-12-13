@@ -88,7 +88,7 @@ services:
         git init .
         git remote add -t \* -f origin https://github.com/FusionAuth/fusionauth-example-password-encryptor.git
         git checkout master
-        mvn install
+        mvn compile package
         cp target/fusionauth-example-password-encryptor*.jar output/
     volumes:
       - maven_cache:/root/.m2
