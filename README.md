@@ -6,6 +6,10 @@ This repository contains different FusionAuth docker compose configuration examp
 
 There are multiple examples, one directory for each.
 
+### build
+
+An example which builds Example Password Hasher Plugin and adds it in to a custom fusionauth-app image.
+
 ### kickstart
 
 A complex example using kickstart to stage a development FusionAuth environment.
