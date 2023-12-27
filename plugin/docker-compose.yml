@@ -90,6 +90,7 @@ services:
         git checkout master
         mvn compile package
         cp target/fusionauth-example-password-encryptor*.jar output/
+        chown 1000:1000 output/*
     volumes:
       - maven_cache:/root/.m2
       - plugin_source:/app
