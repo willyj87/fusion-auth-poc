@@ -2,8 +2,6 @@ services:
   fa_db:
     image: postgres:16.0-bookworm
     container_name: fa_db
-    ports:
-      - "5432:5432"
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_USER: ${POSTGRES_USER}
@@ -37,8 +35,6 @@ services:
       FUSIONAUTH_APP_KICKSTART_FILE: ${FUSIONAUTH_APP_KICKSTART_FILE}
     networks:
       - db_net
-    ports:
-      - 9011:9011
     volumes:
       - fusionauth_config:/usr/local/fusionauth/config
       - ./kickstart:/usr/local/fusionauth/kickstart

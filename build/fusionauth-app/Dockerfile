@@ -2,7 +2,7 @@ FROM maven AS build
 WORKDIR /app
 RUN git init . &&\
   git remote add -t \* -f origin https://github.com/FusionAuth/fusionauth-example-password-encryptor.git &&\
-  git checkout master &&\
+  git checkout main &&\
   mvn compile package
 
 FROM fusionauth/fusionauth-app:latest
